@@ -22,8 +22,10 @@ namespace WebForm.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            //TODO не использовать строки, использовать дженерик метод
             modelBuilder.Entity("WebForm.Entity.Candidate", b =>
                 {
+                    //TODO не использовать строки, использовать name или лямбы
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
