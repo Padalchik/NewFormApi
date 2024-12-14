@@ -1,0 +1,6 @@
+@WebForm_HostAddress = http://localhost:5148
+
+GET {{WebForm_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
