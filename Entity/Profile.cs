@@ -1,11 +1,16 @@
 ﻿namespace WebForm.Entity
 {
-    public class Candidate
+    public class Profile
     {
         /// <summary>
-        /// Id кандидата
+        /// Id анкеты
         /// </summary>
         public Guid Id { get; set; }
+
+        /// <summary>
+        /// Id кандидата, которому принадлежит анкета
+        /// </summary>
+        public Guid CandidateId { get; set; }
 
         /// <summary>
         /// Имя
