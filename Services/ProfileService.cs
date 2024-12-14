@@ -24,6 +24,11 @@ namespace WebForm.Services
             return profiles;
         }
 
+        /// <summary>
+        /// Создаёт анкету
+        /// </summary>
+        /// <param name="candidateId">Id кандидата</param>
+        /// <returns>Id созданной анкеты</returns>
         public async Task<Guid> Create(Guid candidateId)
         {
             var candiate = _candidateService.GetById(candidateId).Result;
