@@ -25,5 +25,17 @@ namespace WebForm.Controllers
             var profiles = await _profileService.GetProfiles();
             return profiles;
         }
+
+        /// <summary>
+        /// Создаёт анкету
+        /// </summary>
+        /// <param name="candidateId">Id кандидата, для которого создаётся анкета</param>
+        /// <returns>Id созданной анкеты</returns>
+        [HttpPost]
+        public async Task<Guid> Create(Guid candidateId)
+        {
+            var profileId = await _profileService.Create(candidateId);
+            return profileId;
+        }
     }
 }
