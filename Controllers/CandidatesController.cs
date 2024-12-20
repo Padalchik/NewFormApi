@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Routing.Matching;
 using WebForm.Contracts.Candidate;
 using WebForm.Entity;
 using WebForm.Services;
@@ -24,7 +23,7 @@ namespace WebForm.Controllers
         [HttpGet]
         public async Task<List<Candidate>> List()
         {
-            var allCandidates = await _candidatesService.GetAllCandidates();
+            var allCandidates = await _candidatesService.GetAll();
             return allCandidates;
         }
 
@@ -38,7 +37,7 @@ namespace WebForm.Controllers
         {
             //TODO собственное
             //плохо? то что связываем сервис с входящей DTO
-            var candidateId = await _candidatesService.CreateCandidate(request);
+            var candidateId = await _candidatesService.Create(request);
             return candidateId;
         }
     }
