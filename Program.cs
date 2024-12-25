@@ -15,6 +15,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 });
 
 builder.Services.AddScoped<CandidateService>();
+builder.Services.AddScoped<ProfileService>();
 
 builder.Services.AddSwaggerGen(c =>
 {
