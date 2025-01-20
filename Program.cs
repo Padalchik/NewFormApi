@@ -16,6 +16,7 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
 
 builder.Services.AddScoped<CandidateService>();
 builder.Services.AddScoped<ProfileService>();
+builder.Services.AddScoped<PhoneRecordService>();
 
 builder.Services.AddSwaggerGen(c =>
 {

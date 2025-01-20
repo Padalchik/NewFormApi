@@ -15,6 +15,22 @@ namespace WebForm.Services
         }
 
         /// <summary>
+        /// Возвращает анкету по указанному Id.
+        /// </summary>
+        /// <param name="id">Идентификатор анкеты.</param>
+        /// <returns>Анкета, если найден.</returns>
+        /// <exception cref="KeyNotFoundException">Выбрасывается, если анкета с указанным Id не найдена.</exception>
+        public async Task<Profile> GetById(Guid id)
+        {
+            var profile = await _dbContext.Profiles.FirstOrDefaultAsync(c => c.Id == id);
+
+            if (profile == null)
+                throw new KeyNotFoundException($"Анкета с Id '{id}' не найден.");
+
+            return profile;
+        }
+
+        /// <summary>
         /// Возвращает список всех анкет
         /// </summary>
         /// <returns>Список анкет.</returns>

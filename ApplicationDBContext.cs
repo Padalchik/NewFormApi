@@ -12,6 +12,7 @@ namespace WebForm
 
         public DbSet<Candidate> Candidates { get; set; }
         public DbSet<Profile> Profiles { get; set; }
+        public DbSet<PhoneRecord> PhoneRecords { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
