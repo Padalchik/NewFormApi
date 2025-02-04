@@ -2,8 +2,9 @@
 {
     public enum PhoneType
     {
-        Mobile,
-        Work,
-        Home
+        None   = 0,
+        Mobile = 1,
+        Work   = 2,
+        Home   = 3
     }
 }
