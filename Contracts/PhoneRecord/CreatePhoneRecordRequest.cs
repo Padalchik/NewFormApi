@@ -5,11 +5,6 @@ namespace WebForm.Contracts.PhoneRecord
     public record CreatePhoneRecordRequest
     {
         /// <summary>
-        /// Id анкеты, которой принадлежит запись
-        /// </summary>
-        public Guid ProfileId { get; set; }
-
-        /// <summary>
         /// Тип
         /// </summary>
         public PhoneType Type { get; set; }

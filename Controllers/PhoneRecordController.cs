@@ -4,13 +4,13 @@ using WebForm.Services;
 
 namespace WebForm.Controllers
 {
-    [Route("[controller]")]
     [ApiController]
-    public class PhoneRecordController : ControllerBase
+    [Route("profiles/{profileId}/phones")]
+    public class PhoneRecordsController : ControllerBase
     {
         private readonly PhoneRecordService _phoneRecordService;
 
-        public PhoneRecordController(PhoneRecordService phoneRecordService)
+        public PhoneRecordsController(PhoneRecordService phoneRecordService)
         {
             _phoneRecordService = phoneRecordService;
         }
@@ -21,9 +21,9 @@ namespace WebForm.Controllers
         /// <param name="request">Данные для создания записи о телефоне</param>
         /// <returns>Id созданной записи</returns>
         [HttpPost]
-        public async Task<Guid> Create(CreatePhoneRecordRequest request)
+        public async Task<Guid> Create(Guid profileId, CreatePhoneRecordRequest request)
         {
-            var phoneRecordId = await _phoneRecordService.Create(request);
+            var phoneRecordId = await _phoneRecordService.Create(profileId, request);
             return phoneRecordId;
         }
     }

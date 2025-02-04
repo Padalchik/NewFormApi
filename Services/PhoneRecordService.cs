@@ -20,13 +20,13 @@ namespace WebForm.Services
         /// </summary>
         /// <param name="request">Входные данные для телефона</param>
         /// <returns></returns>
-        public async Task<Guid> Create(CreatePhoneRecordRequest request)
+        public async Task<Guid> Create(Guid profileId, CreatePhoneRecordRequest request)
         {
-            var profile = _profileService.GetById(request.ProfileId).Result;
+            var profile = _profileService.GetById(profileId).Result;
 
             var phoneRecord = new PhoneRecord
             {
-                ProfileId = request.ProfileId,
+                ProfileId = profileId,
                 Type = request.Type,
                 Model = request.Model,
                 Number = request.Number,
