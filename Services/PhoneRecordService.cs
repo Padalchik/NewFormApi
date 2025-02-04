@@ -22,7 +22,7 @@ namespace WebForm.Services
         /// <returns></returns>
         public async Task<Guid> Create(Guid profileId, CreatePhoneRecordRequest request)
         {
-            var profile = _profileService.GetById(profileId).Result;
+            var profile = await _profileService.GetById(profileId);
 
             var phoneRecord = new PhoneRecord
             {
