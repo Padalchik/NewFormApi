@@ -1,4 +1,4 @@
-﻿using WebForm.Entity;
+﻿using WebForm.Definitions;
 
 namespace WebForm.Contracts.PhoneRecord
 {

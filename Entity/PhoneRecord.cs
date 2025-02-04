@@ -1,4 +1,6 @@
-﻿namespace WebForm.Entity
+﻿using WebForm.Definitions;
+
+namespace WebForm.Entity
 {
     public class PhoneRecord
     {
@@ -31,12 +33,5 @@
         /// Примечание
         /// </summary>
         public string Note { get; set; } = string.Empty;
-    }
-
-    public enum PhoneType
-    {
-        Mobile,
-        Work,
-        Home
     }
 }
