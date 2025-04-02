@@ -15,6 +15,11 @@ namespace WebForm.Entity
         public Guid ProfileId { get; set; }
 
         /// <summary>
+        /// Анкета, которой принадлежит запись
+        /// </summary>
+        public Profile? Profile { get; private set; } // Добавили навигационное свойство
+
+        /// <summary>
         /// Тип
         /// </summary>
         public PhoneType Type { get; set; }

@@ -1,6 +1,6 @@
 ﻿using WebForm.Definitions;
 
-namespace WebForm.Contracts.PhoneRecord
+namespace WebForm.Dto.PhoneRecord
 {
     public record CreatePhoneRecordRequest
     {
