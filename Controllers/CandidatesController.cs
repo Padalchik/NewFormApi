@@ -21,10 +21,14 @@ namespace WebForm.Controllers
         /// </summary>
         /// <returns>Список кандидатов.</returns>
         [HttpGet]
-        public async Task<List<Candidate>> List()
+        public async Task<IActionResult> List()
         {
-            var allCandidates = await _candidatesService.GetAll();
-            return allCandidates;
+            var result = await _candidatesService.GetAll();
+
+            if (result.IsFailed)
+                return StatusCode(StatusCodes.Status500InternalServerError, result.Errors);
+
+            return Ok(result.Value);
         }
 
         /// <summary>
@@ -33,12 +37,14 @@ namespace WebForm.Controllers
         /// <param name="request">Данные для создания кандидата</param>
         /// <returns>Id созданного кандидата.</returns>
         [HttpPost]
-        public async Task<Guid> Create(CreateCandidateRequest request)
+        public async Task<IActionResult> Create(CreateCandidateRequest request)
         {
-            //TODO собственное
-            //плохо? то что связываем сервис с входящей DTO
-            var candidateId = await _candidatesService.Create(request);
-            return candidateId;
+            var result = await _candidatesService.Create(request);
+
+            if (result.IsFailed)
+                return BadRequest(result.Errors);
+
+            return Ok(result.Value);
         }
     }
 }

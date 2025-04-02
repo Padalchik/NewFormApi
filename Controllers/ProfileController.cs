@@ -20,10 +20,10 @@ namespace WebForm.Controllers
         /// </summary>
         /// <returns>Список анкет.</returns>
         [HttpGet]
-        public async Task<List<Profile>> List()
+        public async Task<IActionResult> List()
         {
             var profiles = await _profileService.GetProfiles();
-            return profiles;
+            return Ok(profiles);
         }
 
         /// <summary>
@@ -32,10 +32,14 @@ namespace WebForm.Controllers
         /// <param name="candidateId">Id кандидата, для которого создаётся анкета</param>
         /// <returns>Id созданной анкеты</returns>
         [HttpPost]
-        public async Task<Guid> Create(Guid candidateId)
+        public async Task<IActionResult> Create(Guid candidateId)
         {
-            var profileId = await _profileService.Create(candidateId);
-            return profileId;
+            var result  = await _profileService.Create(candidateId);
+
+            if (result.IsFailed)
+                return BadRequest(result.Errors);
+
+            return Ok(result.Value);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FluentResults;
+using Microsoft.EntityFrameworkCore;
 using WebForm.Entity;
 
 namespace WebForm.Services
@@ -12,6 +13,21 @@ namespace WebForm.Services
         {
             _dbContext = context;
             _candidateService = candidateService;
+        }
+
+        /// <summary>
+        /// Возвращает анкету по указанному Id.
+        /// </summary>
+        /// <param name="id">Идентификатор анкеты.</param>
+        /// <returns>Анкета, если найден.</returns>
+        /// <exception cref="KeyNotFoundException">Выбрасывается, если анкета с указанным Id не найдена.</exception>
+        public async Task<Result<Profile>> GetById(Guid id)
+        {
+            if (id == Guid.Empty)
+                return Result.Fail("Id анкеты не может быть пустым.");
+
+            var profile = await _dbContext.Profiles.FirstOrDefaultAsync(c => c.Id == id);
+            return profile == null ? Result.Fail($"Анкета с Id {id} не найден.") : Result.Ok(profile);
         }
 
         /// <summary>
@@ -29,22 +45,23 @@ namespace WebForm.Services
         /// </summary>
         /// <param name="candidateId">Id кандидата</param>
         /// <returns>Id созданной анкеты</returns>
-        public async Task<Guid> Create(Guid candidateId)
+        public async Task<Result<Guid>> Create(Guid candidateId)
         {
-            var candiate = _candidateService.GetById(candidateId).Result;
+            var result = await _candidateService.GetById(candidateId);
 
-            var profile = new Profile
-            {
-                CandidateId = candiate.Id,
-                FirstName   = candiate.FirstName,
-                LastName    = candiate.LastName,
-                MiddleName  = candiate.MiddleName
-            };
+            if (result.IsFailed)
+                return Result.Fail("Кандидат с указанным id не найден");
+
+            Candidate candidate = result.Value;
+
+            var profile = new Profile(candidate.LastName, candidate.FirstName, candidate.MiddleName);
+            profile.SetCandidate(candidate);
+            candidate.AddProfile(profile);
 
             await _dbContext.Profiles.AddAsync(profile);
             await _dbContext.SaveChangesAsync();
 
-            return profile.Id;
+            return Result.Ok(profile.Id);
         }
     }
 }
